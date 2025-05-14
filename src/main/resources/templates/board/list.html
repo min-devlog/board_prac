@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시글 목록</title>
+  <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+<div class="container">
+<h1>자유 게시판</h1>
+<table border="1">
+  <thead>
+  <tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>등록일</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="board : ${list}">
+    <td th:text="${board.boardId}">번호</td>
+    <td><a th:href="@{/board/view/{id}(id=${board.boardId})}" th:text="${board.title}">제목</a></td>
+    <td th:text="${board.writer}">작성자</td>
+    <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd')}">등록일</td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<a href="/board/add">글쓰기</a>
+</div>>
+</body>
+</html>

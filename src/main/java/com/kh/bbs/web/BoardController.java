@@ -17,6 +17,8 @@ import java.util.Optional;
 @RequestMapping("/board")
 public class BoardController {
 
+
+
   private final BoardSVC boardSVC;
 
   // 게시글 등록 화면
@@ -34,7 +36,7 @@ public class BoardController {
   }
 
   // 게시글 단건 조회 (상세화면)
-  @GetMapping("/{id}")
+  @GetMapping("/view/{id}")
   public String findById(@PathVariable Long id, Model model){
     Board board = boardSVC.findById(id).orElseThrow();
     model.addAttribute("board", board);
@@ -50,7 +52,7 @@ public class BoardController {
   }
 
   // 게시글 삭제
-  @GetMapping("/{id}/del")
+  @GetMapping("/delete/{id}")
   public String deleteById(@PathVariable Long id){
     boardSVC.deleteById(id);
     return "redirect:/board";

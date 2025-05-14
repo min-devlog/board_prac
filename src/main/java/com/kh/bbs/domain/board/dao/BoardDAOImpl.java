@@ -14,6 +14,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,8 +33,13 @@ public class BoardDAOImpl implements BoardDAO{
       board.setTitle(rs.getString("title"));
       board.setContent(rs.getString("content"));
       board.setWriter(rs.getString("writer"));
-      board.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
-      board.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
+
+      Timestamp createdAtTimestamp = rs.getTimestamp("created_at");
+      Timestamp updatedAtTimestamp = rs.getTimestamp("updated_at");
+
+      board.setCreatedAt(createdAtTimestamp != null ? createdAtTimestamp.toLocalDateTime() : null);
+      board.setUpdatedAt(updatedAtTimestamp != null ? updatedAtTimestamp.toLocalDateTime() : null);
+
       return board;
     };
   }
@@ -76,7 +82,7 @@ public class BoardDAOImpl implements BoardDAO{
       board = template.queryForObject(
           sql.toString(),
           param,
-          BeanPropertyRowMapper.newInstance(Board.class)
+          boardRowMapper()
       );
     } catch (EmptyResultDataAccessException e) {
       return Optional.empty();

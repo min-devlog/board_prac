@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시글 상세</title>
+  <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+<h1>게시글 상세</h1>
+<div>
+  <label>제목</label><br>
+  <p th:text="${board.title}">제목</p>
+</div>
+<div>
+  <label>작성자</label><br>
+  <p th:text="${board.writer}">작성자</p>
+</div>
+<div>
+  <label>내용</label><br>
+  <p th:text="${board.content}">내용</p>
+</div>
+<br>
+<a th:href="@{/board/edit/{id}(id=${board.boardId})}">수정</a>
+<a th:href="@{/board/delete/{id}(id=${board.boardId})}">삭제</a>
+<a href="/board">목록</a>
+</body>
+</html>
