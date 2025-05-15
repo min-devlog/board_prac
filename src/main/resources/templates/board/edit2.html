@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 수정</title>
+  <link rel="stylesheet" href="/css/detail.css">
+</head>
+
+<body>
+<div class="container">
+  <div class="page-header">
+    <small>자유게시판</small>
+    <form th:action="@{/board/edit/{id}(id=${updateForm.boardId})}" th:object="${updateForm}" method="post">
+
+      <h1 class="detail-title">
+        <input type="text" name="title" th:field="*{title}" style="height:28px;" required>
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></div>
+      </h1>
+
+      <input type="hidden" name="writer" th:field="*{writer}">
+
+      <div class="post-meta">
+        <span>👤</span>
+        <span th:text="${updateForm.writer}">작성자</span> |
+        <span th:text="${#temporals.format(updateForm.createdAt, 'yyyy-MM-dd HH:mm')}">작성일시</span>
+      </div>
+
+      <hr class="divider">
+
+      <div class="detail-content">
+        <textarea th:field="*{content}" rows="10" required></textarea>
+        <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error"></div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="edit-actions">
+        <button type="submit" class="btn">저장</button>
+        <a th:href="@{/board/view/{id}(id=${updateForm.boardId})}" class="btn">취소</a>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

@@ -5,26 +5,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>게시글 상세</title>
-  <link rel="stylesheet" href="/css/style.css">
-
+  <link rel="stylesheet" href="/css/detail.css">
 </head>
+
 <body>
-<h1>게시글 상세</h1>
-<div>
-  <label>제목</label><br>
-  <p th:text="${board.title}">제목</p>
+<div class="container">
+
+  <!-- 헤더 -->
+  <div class="page-header">
+    <small>자유게시판</small>
+    <h1 th:text="${detailForm.title}">게시글 제목</h1>
+  </div>
+
+  <!-- 작성자 정보, 작성일 -->
+  <div class="post-meta">
+    <span>👤 </span>
+    <span th:text="${detailForm.writer}">작성자</span> |
+    <span th:text="${#temporals.format(detailForm.createdAt, 'yyyy-MM-dd HH:mm')}">작성일시</span>
+  </div>
+
+
+  <hr class="divider">
+
+  <!-- 본문 -->
+  <div class="post-content" th:text="${detailForm.content}">
+    게시글 내용
+  </div>
+
+
+  <hr class="divider">
+
+  <!-- 버튼 영역 -->
+  <div class="button-group">
+    <a href="/board" class="btn">목록</a>
+    <a th:href="@{/board/edit/{id}(id=${detailForm.boardId})}" class="btn">수정</a>
+    <a th:href="@{/board/delete/{id}(id=${detailForm.boardId})}"
+       class="btn"
+       onclick="return confirm('정말 삭제할까요?')">삭제</a>
+  </div>
+
 </div>
-<div>
-  <label>작성자</label><br>
-  <p th:text="${board.writer}">작성자</p>
-</div>
-<div>
-  <label>내용</label><br>
-  <p th:text="${board.content}">내용</p>
-</div>
-<br>
-<a th:href="@{/board/edit/{id}(id=${board.boardId})}">수정</a>
-<a th:href="@{/board/delete/{id}(id=${board.boardId})}">삭제</a>
-<a href="/board">목록</a>
 </body>
 </html>

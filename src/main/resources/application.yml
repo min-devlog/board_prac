@@ -8,4 +8,6 @@ spring:
     username: c##bbs
     password: bbs1234
 
+  thymeleaf:
+    cache: false
 

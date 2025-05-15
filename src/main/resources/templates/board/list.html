@@ -1,36 +1,65 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>게시글 목록</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <title>자유게시판</title>
 
+  <link rel="stylesheet" href="/css/list.css">
 </head>
 <body>
 <div class="container">
-<h1>자유 게시판</h1>
-<table border="1">
-  <thead>
-  <tr>
-    <th>번호</th>
-    <th>제목</th>
-    <th>작성자</th>
-    <th>등록일</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="board : ${list}">
-    <td th:text="${board.boardId}">번호</td>
-    <td><a th:href="@{/board/view/{id}(id=${board.boardId})}" th:text="${board.title}">제목</a></td>
-    <td th:text="${board.writer}">작성자</td>
-    <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd')}">등록일</td>
-  </tr>
-  </tbody>
-</table>
-<br>
-<a href="/board/add">글쓰기</a>
-</div>>
+  <div class="board-header">
+   <h1>자유게시판</h1>
+    <a href="/" class="home-btn"> 🏠 ︎</a>
+  </div>
+  <p class="notice"> 광고 금지 (모든 종류의 광고 활동은 금지합니다.)</p>
+  <p class="notice"> 도배 금지 (같은 글 10이상 자제바랍니다.)</p>
+
+  <table>
+    <thead>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+      <th>등록일</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="board : ${list}">
+      <td th:text="${board.boardId}">번호</td>
+      <td><a th:href="@{/board/view/{id}(id=${board.boardId})}" th:text="${board.title}">제목</a></td>
+      <td th:text="${board.writer}">작성자</td>
+      <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd')}">등록일</td>
+    </tr>
+    </tbody>
+  </table>
+
+   <div class="menu-wrapper">
+    <div class="menu-left">
+      <a href="/board/add" class="btn-write">글쓰기</a>
+    </div>
+    <div class="menu-right">
+      <a href="#" class="btn-mypost">내 글 보기</a>
+    </div>
+   </div>
+
+  <div class="search-box">
+    <select>
+      <option value="title">제목</option>
+      <option value="writer">작성자</option>
+    </select>
+    <input type="text" placeholder="검색어를 입력하세요">
+    <button>검색</button>
+  </div>
+
+  <div class="pagination">
+    <a href="#">&lt;</a>
+    <a href="#">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">&gt;</a>
+  </div>
+</div>
 </body>
 </html>
