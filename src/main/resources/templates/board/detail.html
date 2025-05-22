@@ -45,5 +45,29 @@
   </div>
 
 </div>
+<hr class="divider">
+
+<!-- 댓글 영역 -->
+<div class="comment-section">
+  <h3>💬 댓글</h3>
+  <!-- 댓글 목록 -->
+  <ul id="comment-list"></ul>
+  <!-- 댓글 작성 -->
+  <div id="comment-form">
+    <input type="text" id="comment-writer" placeholder="작성자" />
+    <textarea id="comment-content" placeholder="댓글을 입력하세요"></textarea>
+    <button id="comment-submit">등록</button>
+  </div>
+</div>
 </body>
+
+<script th:inline="javascript">
+  const boardId = [[${detailForm.boardId}]];
+  window.addEventListener('DOMContentLoaded', () => {
+    loadComments(boardId);
+    initCommentForm(boardId);
+  });
+</script>
+<script src="/js/board/detail.js"></script>
+
 </html>
